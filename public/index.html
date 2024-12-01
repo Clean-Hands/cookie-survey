@@ -40,9 +40,11 @@
   </head>
   <body>
     <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <h1>Hello!</h1>
+      <p>This is a test message that is made to check how the site is working.</p>
+      <p>What if i put another one here?</p>
+      <h2>Section the next one</h2>
+      <p>VScode is kinda goated for HTML editing</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
@@ -81,7 +83,7 @@
           loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
           console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+          loadEl.textContent = `Error loading the Firebase SDK: ${e}`;
         }
       });
     </script>
