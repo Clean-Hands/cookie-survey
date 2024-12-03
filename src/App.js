@@ -4,12 +4,10 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 
-// import CardEditor from './CardEditor.js';
-// import CardViewer from './CardViewer.js';
 import Homepage from './Homepage.js';
-// import PageRegister from './PageRegister.js';
-// import PageLogin from './PageLogin.js';
-// import PageProfile from './PageProfile.js';
+import PageRegister from './PageRegister.js';
+import PageLogin from './PageLogin.js';
+import PageProfile from './PageProfile.js';
 
 const App = props => {
   if (!isLoaded(props.auth, props.profile)) {
@@ -21,12 +19,6 @@ const App = props => {
     <Route exact path="/">
       <Homepage />
     </Route>
-    {/* <Route exact path="/editor">
-      <CardEditor />
-    </Route>
-    <Route exact path="/viewer/:deckId">
-      <CardViewer />
-    </Route>
     <Route exact path="/register">
       <PageRegister/>
     </Route>
@@ -35,7 +27,7 @@ const App = props => {
     </Route>
     <Route path="/profile">
       <PageProfile />
-    </Route> */}
+    </Route>
     <Route>
       <div>Page not found</div>
     </Route>
