@@ -43,36 +43,43 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const rootReducer = combineReducers({
-  firebase: firebaseReducer
-  // firestore: firestoreReducer // <- needed if using firestore
-})
+// const rootReducer = combineReducers({
+//   firebase: firebaseReducer
+//   // firestore: firestoreReducer // <- needed if using firestore
+// })
 
-// Create store with reducers and initial state
-const store = createStore(rootReducer, composeWithDevTools())
+// // Create store with reducers and initial state
+// const store = createStore(rootReducer, composeWithDevTools())
 
-// react-redux-firebase config
-const rrfConfig = {
-  userProfile: 'users',
-  preserveOnLogout: ['names'],
-  // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
-  // enableClaims: true // Get custom claims along with the profile
-}
+// // react-redux-firebase config
+// const rrfConfig = {
+//   userProfile: 'users',
+//   preserveOnLogout: ['names'],
+//   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+//   // enableClaims: true // Get custom claims along with the profile
+// }
 
-const rrfProps = {
-  firebase,
-  config: rrfConfig,
-  dispatch: store.dispatch
-  // createFirestoreInstance // <- needed if using firestore
-}
+// const rrfProps = {
+//   firebase,
+//   config: rrfConfig,
+//   dispatch: store.dispatch
+//   // createFirestoreInstance // <- needed if using firestore
+// }
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ReactReduxFirebaseProvider {...rrfProps}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ReactReduxFirebaseProvider>
-  </Provider>,
-  document.getElementById('root')
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <ReactReduxFirebaseProvider {...rrfProps}>
+//       <BrowserRouter>
+//         <App />
+//       </BrowserRouter>
+//     </ReactReduxFirebaseProvider>
+//   </Provider>,
+//   document.getElementById('root')
+// );
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
