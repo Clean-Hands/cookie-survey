@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { isLoaded } from 'react-redux-firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from './index';
+import { setUser, clearUser } from './index';
 
 import Homepage from './Homepage.js';
 import PageRegister from './PageRegister.js';
 import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
 
-const App = props => {
-  // if (!isLoaded(props.auth, props.profile)) {
-  //   return <div>Authentication loading...</div>
-  // }
+const App = () => {
+  const dispatch = useDispatch();
+  const { user, isLoading } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if (currentUser) {
+        dispatch(setUser({
+          uid: currentUser.uid,
+          email: currentUser.email
+        }));
+      } else {
+        dispatch(clearUser());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Authentication loading...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -26,8 +46,4 @@ const App = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {auth: state.firebase.auth, profile: state.firebase.profile};
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

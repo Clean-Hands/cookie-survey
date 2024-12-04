@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
-import { firebaseConnect } from 'react-redux-firebase';
+// import { firebaseConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -36,13 +36,13 @@ class Homepage extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return({
-    decks: state.firebase.data['names'],
-    email: state.firebase.auth.email,
-    isLoggedIn: state.firebase.auth.uid,
+    // decks: state.firebase.data['names'],
+    // email: state.firebase.auth.email,
+    // isLoggedIn: state.firebase.auth.uid,
   });
 }
 
 export default compose(
-  firebaseConnect([{ path: '/names', storeAs: 'names' }]),
-  connect(mapStateToProps)
+  // firebaseConnect([{ path: '/names', storeAs: 'names' }]),
+  // connect(mapStateToProps)
 )(Homepage);

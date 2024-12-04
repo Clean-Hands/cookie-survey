@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { configureStore } from '@reduxjs/toolkit';
-import { firebaseReducer } from 'react-redux-firebase';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
@@ -23,36 +21,47 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const database = getDatabase(firebaseApp);
+export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseAuth = getAuth(firebaseApp);
+export const firebaseDatabase = getDatabase(firebaseApp);
 
-// Redux
-const store = configureStore({
-  reducer: {
-    firebase: firebaseReducer
+// Create auth slice
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    user: null,
+    isLoading: true
   },
-  // Optional: disable Redux DevTools in production
-  devTools: process.env.NODE_ENV !== 'production',
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+    },
+    clearUser: (state) => {
+      state.user = null;
+      state.isLoading = false;
+    }
+  }
 });
 
-const rrfConfig = {
-  userProfile: 'users'
-  // Populate user profile using Firestore
-  // useFirestoreForProfile: true 
-};
+export const { setUser, clearUser } = authSlice.actions;
+
+// Redux Store
+const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer
+  },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ReactReduxFirebaseProvider
-        firebase={firebaseApp}
-        config={rrfConfig}
-        dispatch={store.dispatch}
-      >
-        <App />
-      </ReactReduxFirebaseProvider>
+      <App />
     </Provider>
   </React.StrictMode>
 );

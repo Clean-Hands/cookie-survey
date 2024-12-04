@@ -1,8 +1,8 @@
 import React from 'react';
-import {firebaseConnect} from 'react-redux-firebase';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {Link, Redirect} from 'react-router-dom';
+// import { firebaseConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Link, Navigate } from 'react-router-dom';
 
 class PageProfile extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class PageProfile extends React.Component {
 
   render() {
     if (!this.props.isLoggedIn) {
-      return <Redirect to="/login"/>
+      return <Navigate to="/login"/>
     }
 
     return (
@@ -49,10 +49,10 @@ class PageProfile extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {isLoggedIn: state.firebase.auth.uid};
+  // return {isLoggedIn: state.firebase.auth.uid};
 }
 
 export default compose(
-  firebaseConnect(),
+  // firebaseConnect(),
   connect(mapStateToProps)
 )(PageProfile);
