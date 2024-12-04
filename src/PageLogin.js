@@ -1,64 +1,66 @@
-import React from 'react';
-// import { firebaseConnect } from 'react-redux-firebase';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { firebaseAuth } from './index';
 
-class PageLogin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
+const PageLogin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const user = useSelector(state => state.auth.user);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
     }
-  }
+    setError('');
+  };
 
-  handleInputChange = event => {
-    this.setState({[event.target.name]: event.target.value, error: ''});
-  }
-
-  login = async () => {
-    const credentials = {
-      email: this.state.email,
-      password: this.state.password,
-    }
+  const login = async () => {
     try {
-      await this.props.firebase.login(credentials);
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
     } catch (error) {
-      this.setState({error: error.message});
+      setError(error.message);
     }
   };
 
-  render() {
-    if (this.props.isLoggedIn) {
-      return <Navigate to="/"/>
-    }
-
-    return (
-      <div>
-        <h2>Login</h2>
-        <div>{this.state.error}</div>
-        <div>
-          <input name="email" onChange={this.handleInputChange} placeholder="Email" value={this.state.email}/>
-          <br/>
-          <input name="password" type="password" onChange={this.handleInputChange} placeholder="Password" value={this.state.password}/>
-          <br/>
-          <button onClick={this.login}>Login</button>
-        </div>
-        <hr/>
-        <Link to="/register">Register</Link>
-        <br/>
-        <Link to="/">Home</Link>
-      </div>
-    );
+  if (user) {
+    return <Navigate to="/"/>
   }
-}
 
-const mapStateToProps = state => {
-  // return {isLoggedIn: state.firebase.auth.uid};
-}
+  return (
+    <div>
+      <h2>Login</h2>
+      {error && <div>{error}</div>}
+      <div>
+        <input 
+          name="email" 
+          onChange={handleInputChange} 
+          placeholder="Email" 
+          value={email}
+        />
+        <br/>
+        <input 
+          name="password" 
+          type="password" 
+          onChange={handleInputChange} 
+          placeholder="Password" 
+          value={password}
+        />
+        <br/>
+        <button onClick={login}>Login</button>
+      </div>
+      <hr/>
+      <Link to="/register">Register</Link>
+      <br/>
+      <Link to="/">Home</Link>
+    </div>
+  );
+};
 
-export default compose(
-  // firebaseConnect(),
-  connect(mapStateToProps),
-)(PageLogin);
+export default PageLogin;
