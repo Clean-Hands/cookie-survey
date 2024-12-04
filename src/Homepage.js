@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { firebaseConnect} from 'react-redux-firebase';
+import { Link } from 'react-router-dom';
+import { firebaseConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 class Homepage extends React.Component {
   render() {
-
     return (
       <div>
         <h1>2024 Christmas Cookie Vote</h1>
@@ -44,9 +43,6 @@ const mapStateToProps = (state, props) => {
 }
 
 export default compose(
-  useNavigate,
-  firebaseConnect(props => {
-    return [{path: '/names', storeAs: 'names'}];
-  }),
+  firebaseConnect([{ path: '/names', storeAs: 'names' }]),
   connect(mapStateToProps)
 )(Homepage);

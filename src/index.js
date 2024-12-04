@@ -1,32 +1,14 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BrowserRouter } from "react-router-dom";
-import { initializeApp, firebase } from "firebase/app";
-import 'firebase/database';
-import 'firebase/auth';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
-import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { configureStore } from '@reduxjs/toolkit';
+import { firebaseReducer } from 'react-redux-firebase';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+
+import App from './App';
 
 
 // Your web app's Firebase configuration
@@ -41,45 +23,36 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const database = getDatabase(firebaseApp);
 
-// const rootReducer = combineReducers({
-//   firebase: firebaseReducer
-//   // firestore: firestoreReducer // <- needed if using firestore
-// })
+// Redux
+const store = configureStore({
+  reducer: {
+    firebase: firebaseReducer
+  },
+  // Optional: disable Redux DevTools in production
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
-// // Create store with reducers and initial state
-// const store = createStore(rootReducer, composeWithDevTools())
-
-// // react-redux-firebase config
-// const rrfConfig = {
-//   userProfile: 'users',
-//   preserveOnLogout: ['names'],
-//   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
-//   // enableClaims: true // Get custom claims along with the profile
-// }
-
-// const rrfProps = {
-//   firebase,
-//   config: rrfConfig,
-//   dispatch: store.dispatch
-//   // createFirestoreInstance // <- needed if using firestore
-// }
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <ReactReduxFirebaseProvider {...rrfProps}>
-//       <BrowserRouter>
-//         <App />
-//       </BrowserRouter>
-//     </ReactReduxFirebaseProvider>
-//   </Provider>,
-//   document.getElementById('root')
-// );
+const rrfConfig = {
+  userProfile: 'users'
+  // Populate user profile using Firestore
+  // useFirestoreForProfile: true 
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider
+        firebase={firebaseApp}
+        config={rrfConfig}
+        dispatch={store.dispatch}
+      >
+        <App />
+      </ReactReduxFirebaseProvider>
+    </Provider>
   </React.StrictMode>
 );

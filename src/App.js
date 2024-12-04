@@ -1,6 +1,5 @@
 import React from 'react';
-import { Routes } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 
@@ -14,28 +13,18 @@ const App = props => {
     return <div>Authentication loading...</div>
   }
 
-  return(
-  <Routes>
-    <Route exact path="/">
-      <Homepage />
-    </Route>
-    <Route exact path="/register">
-      <PageRegister/>
-    </Route>
-    <Route exact path="/login">
-      <PageLogin/>
-    </Route>
-    <Route path="/profile">
-      <PageProfile />
-    </Route>
-    <Route>
-      <div>Page not found</div>
-    </Route>
-  </Routes>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/register" element={<PageRegister />} />
+        <Route path="/login" element={<PageLogin />} />
+        <Route path="/profile" element={<PageProfile />} />
+        <Route path="*" element={<div>Page not found</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 };
-
-// export default App;
 
 const mapStateToProps = state => {
   return {auth: state.firebase.auth, profile: state.firebase.profile};
