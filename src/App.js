@@ -9,9 +9,9 @@ import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
 
 const App = props => {
-  if (!isLoaded(props.auth, props.profile)) {
-    return <div>Authentication loading...</div>
-  }
+  // if (!isLoaded(props.auth, props.profile)) {
+  //   return <div>Authentication loading...</div>
+  // }
 
   return (
     <BrowserRouter>
