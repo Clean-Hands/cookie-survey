@@ -21,7 +21,7 @@ const Homepage = () => {
       <h1>2024 Christmas Cookie Vote</h1>
       <h4>by Lazuli Kleinhans</h4>
       <hr/>
-      <p>Welcome to the annual Christmas cookie vote for 2024!</p><br/>
+      <p>Welcome to the 2024 annual Christmas cookie vote!</p><br/>
       
       <h3>Account</h3>
       {user ? (

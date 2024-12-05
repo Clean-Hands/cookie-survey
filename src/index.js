@@ -64,6 +64,7 @@ onAuthStateChanged(firebaseAuth, (user) => {
     store.dispatch(setUser({
       uid: user.uid,
       email: user.email,
+      username: user.username
       // TODO: Add any other user properties we want to store
     }));
   } else {

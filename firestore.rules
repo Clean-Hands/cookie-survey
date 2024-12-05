@@ -13,14 +13,8 @@ service cloud.firestore {
     
     // User profiles rules
     match /users/{userId} {
-      // Allow users to read their own profile
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow users to update their own profile
-      allow update: if isAuthenticated() && isOwner(userId) && 
-        request.resource.data.keys().hasAll(['username', 'email']) &&
-        request.resource.data.username is string &&
-        request.resource.data.email is string;
+      // Allow users to access their own profile
+      allow create, read, update: if isAuthenticated() && isOwner(userId);
     }
     
     // Survey responses rules

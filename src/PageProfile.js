@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from 'firebase/auth';
-import { firebaseAuth, firebaseFirestore } from './index';
+import { firebaseAuth, firebaseFirestore, setUser } from './index';
 
 const PageProfile = () => {
   const user = useSelector(state => state.auth.user);
@@ -16,6 +16,8 @@ const PageProfile = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -32,6 +34,7 @@ const PageProfile = () => {
           }
         } catch (error) {
           setError('Could not fetch user profile: ' + error.message);
+          setSuccess('')
         }
       }
     };
@@ -42,31 +45,46 @@ const PageProfile = () => {
   const handleUpdateUsername = async () => {
     if (!newUsername.trim()) {
       setError('Username cannot be empty');
+      setSuccess('')
       return;
     }
 
     try {
       const userDocRef = doc(firebaseFirestore, 'users', user.uid);
-      await updateDoc(userDocRef, { username: newUsername });
-      
+      await updateDoc(userDocRef, {
+        username: newUsername, 
+        lastModified: new Date()
+      });
       setProfileData(prev => ({ ...prev, username: newUsername }));
       setNewUsername('');
+
       setSuccess('Username updated successfully');
       setError('');
     } catch (error) {
       setError('Could not update username: ' + error.message);
+      setSuccess('')
     }
   };
 
   const handleUpdateEmail = async () => {
     if (!newEmail.trim()) {
       setError('Email cannot be empty');
+      setSuccess('')
       return;
     }
 
     try {
       if (firebaseAuth.currentUser) {
         await updateEmail(firebaseAuth.currentUser, newEmail);
+        const userDocRef = doc(firebaseFirestore, 'users', user.uid);
+        await updateDoc(userDocRef, {email: newEmail, lastModified: new Date()});
+
+        // Dispatch an action to update the user in Redux store
+        dispatch(setUser({
+          ...user,
+          email: newEmail
+        }));
+
         setProfileData(prev => ({ ...prev, email: newEmail }));
         setNewEmail('');
         setSuccess('Email updated successfully');
@@ -74,24 +92,29 @@ const PageProfile = () => {
       }
     } catch (error) {
       setError('Could not update email: ' + error.message);
+      setSuccess('')
     }
   };
 
   const handleUpdatePassword = async () => {
     if (!password.trim()) {
       setError('Password cannot be empty');
+      setSuccess('')
       return;
     }
 
     try {
       if (firebaseAuth.currentUser) {
         await updatePassword(firebaseAuth.currentUser, password);
+        const userDocRef = doc(firebaseFirestore, 'users', user.uid);
+        await updateDoc(userDocRef, {lastModified: new Date()});
         setPassword('');
         setSuccess('Password updated successfully');
         setError('');
       }
     } catch (error) {
       setError('Could not update password: ' + error.message);
+      setSuccess('')
     }
   };
 

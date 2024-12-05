@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { firebaseAuth } from './index';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { firebaseAuth, firebaseFirestore } from './index';
 
 const PageLogin = () => {
   const [email, setEmail] = useState('');
@@ -30,13 +31,16 @@ const PageLogin = () => {
   };
 
   if (user) {
+    const userDocRef = doc(firebaseFirestore, 'users', user.uid);
+    updateDoc(userDocRef, {lastLogin: new Date()});
     return <Navigate to="/"/>
   }
 
   return (
     <div>
       <h2>Login</h2>
-      {error && <div>{error}</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <br/>
       <div>
         <input 
           name="email" 

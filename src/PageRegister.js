@@ -44,7 +44,9 @@ const PageRegister = () => {
       await setDoc(doc(firebaseFirestore, 'users', userCredential.user.uid), {
         email,
         username,
-        createdAt: new Date()
+        createdAt: new Date(),
+        lastModified: new Date(),
+        lastLogin: new Date()
       });
     } catch (error) {
       setError(error.message);
