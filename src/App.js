@@ -12,7 +12,7 @@ import PageProfile from './PageProfile.js';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user, isLoading } = useSelector(state => state.auth);
+  const { isLoading } = useSelector(state => state.auth);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
