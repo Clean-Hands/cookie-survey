@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 
 import App from './App';
 
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCoJhrMeILouXe88-URbvVLcIdM2IjpCUY",
   authDomain: "cookie-survey.firebaseapp.com",
@@ -24,6 +23,7 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseDatabase = getDatabase(firebaseApp);
+export const firebaseFirestore = getFirestore(firebaseApp);
 
 // Create auth slice
 const authSlice = createSlice({
@@ -55,6 +55,21 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false
     })
+});
+
+// Setup auth state listener
+onAuthStateChanged(firebaseAuth, (user) => {
+  if (user) {
+    // User is signed in
+    store.dispatch(setUser({
+      uid: user.uid,
+      email: user.email,
+      // TODO: Add any other user properties we want to store
+    }));
+  } else {
+    // User is signed out
+    store.dispatch(clearUser());
+  }
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

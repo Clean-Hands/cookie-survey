@@ -1,73 +1,100 @@
-import React from 'react';
-// import { firebaseConnect } from 'react-redux-firebase';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { firebaseAuth, firebaseFirestore } from './index';
 
-class PageRegister extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      username: '',
-    }
-  }
+const PageRegister = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
 
-  handleInputChange = event => {
-    this.setState({[event.target.name]: event.target.value, error: ''});
-  }
+  const user = useSelector(state => state.auth.user);
 
-  register = async () => {
-    const credentials = {
-      email: this.state.email,
-      password: this.state.password,
-    }
-
-    const profile = {
-      email: this.state.email,
-      username: this.state.username,
-    }
-
-    try {
-      await this.props.firebase.createUser(credentials, profile);
-    } catch (error) {
-      this.setState({error: error.message});
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setError('');
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      case 'username':
+        setUsername(value);
+        break;
+      default:
+        setError('unknown event name')
     }
   };
 
-  render() {
-    if (this.props.isLoggedIn) {
-      return <Navigate to="/"/>
+  const register = async () => {
+    try {
+      // Create user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth, 
+        email, 
+        password
+      );
+      
+      // Create user profile in Firestore
+      await setDoc(doc(firebaseFirestore, 'users', userCredential.user.uid), {
+        email,
+        username,
+        createdAt: new Date()
+      });
+    } catch (error) {
+      setError(error.message);
     }
+  };
 
-    return (
-      <div>
-        <h2>Register</h2>
-        <div>{this.state.error}</div>
-        <div>
-          <input name="username" onChange={this.handleInputChange} placeholder="Username" value={this.state.username}/>
-          <br/>
-          <input name="email" onChange={this.handleInputChange} placeholder="Email" value={this.state.email}/>
-          <br/>
-          <input name="password" type="password" onChange={this.handleInputChange} placeholder="Password" value={this.state.password}/>
-          <br/>
-          <button disabled={!this.state.username.trim()} onClick={this.register}>Register</button>
-        </div>
-        <hr/>
-        <Link to="/login">Login</Link>
-        <br/>
-        <Link to="/">Home</Link>
-      </div>
-    );
+  if (user) {
+    return <Navigate to="/"/>
   }
-}
 
-const mapStateToProps = state => {
-  // return {isLoggedIn: state.firebase.auth.uid};
-}
+  return (
+    <div>
+      <h2>Register</h2>
+      {error && <div>{error}</div>}
+      <div>
+        <input 
+          name="username" 
+          onChange={handleInputChange} 
+          placeholder="Username" 
+          value={username}
+        />
+        <br/>
+        <input 
+          name="email" 
+          onChange={handleInputChange} 
+          placeholder="Email" 
+          value={email}
+        />
+        <br/>
+        <input 
+          name="password" 
+          type="password" 
+          onChange={handleInputChange} 
+          placeholder="Password" 
+          value={password}
+        />
+        <br/>
+        <button 
+          disabled={!username.trim()} 
+          onClick={register}
+        >
+          Register
+        </button>
+      </div>
+      <hr/>
+      <Link to="/login">Login</Link>
+      <br/>
+      <Link to="/">Home</Link>
+    </div>
+  );
+};
 
-export default compose(
-  // firebaseConnect(),
-  connect(mapStateToProps),
-)(PageRegister);
+export default PageRegister;
