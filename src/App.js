@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from './index';
@@ -40,7 +40,7 @@ const App = () => {
         <Route path="/register" element={<PageRegister />} />
         <Route path="/login" element={<PageLogin />} />
         <Route path="/profile" element={<PageProfile />} />
-        <Route path="*" element={<div>Page not found</div>} />
+        <Route path="*" element={<div><p>Page not found</p><br/><Link to="/">Home</Link></div>} />
       </Routes>
     </BrowserRouter>
   );
