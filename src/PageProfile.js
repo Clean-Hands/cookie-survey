@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { updateEmail, updatePassword } from 'firebase/auth';
+import { updateEmail, updatePassword, signOut } from 'firebase/auth';
 import { firebaseAuth, firebaseFirestore, setUser } from './index';
+
 
 const PageProfile = () => {
   const user = useSelector(state => state.auth.user);
@@ -11,13 +12,14 @@ const PageProfile = () => {
     username: '',
     email: '',
   });
-  const [newEmail, setNewEmail] = useState('');
-  const [newUsername, setNewUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [newEmail, setEmail] = useState('');
+  const [newUsername, setUsername] = useState('');
+  const [newPassword, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -42,6 +44,27 @@ const PageProfile = () => {
     fetchUserProfile();
   }, [user]);
 
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setError('');
+    setSuccess('');
+    switch (name) {
+      case 'newEmail':
+        setEmail(value);
+        break;
+      case 'newPassword':
+        setPassword(value);
+        break;
+      case 'newUsername':
+        setUsername(value);
+        break;
+      default:
+        setError('unknown event name')
+    }
+  };
+
+
   const handleUpdateUsername = async () => {
     if (!newUsername.trim()) {
       setError('Username cannot be empty');
@@ -56,20 +79,21 @@ const PageProfile = () => {
         lastModified: new Date()
       });
       setProfileData(prev => ({ ...prev, username: newUsername }));
-      setNewUsername('');
+      setUsername('');
 
       setSuccess('Username updated successfully');
       setError('');
     } catch (error) {
       setError('Could not update username: ' + error.message);
-      setSuccess('')
+      setSuccess('');
     }
   };
+
 
   const handleUpdateEmail = async () => {
     if (!newEmail.trim()) {
       setError('Email cannot be empty');
-      setSuccess('')
+      setSuccess('');
       return;
     }
 
@@ -86,18 +110,27 @@ const PageProfile = () => {
         }));
 
         setProfileData(prev => ({ ...prev, email: newEmail }));
-        setNewEmail('');
+        setEmail('');
         setSuccess('Email updated successfully');
         setError('');
       }
     } catch (error) {
+      if (error.message === "Firebase: Error (auth/requires-recent-login).") {
+        try {
+          await signOut(firebaseAuth);
+        } catch (error) {
+          console.error("Logout error", error);
+        }
+        return;
+      }
       setError('Could not update email: ' + error.message);
-      setSuccess('')
+      setSuccess('');
     }
   };
 
+
   const handleUpdatePassword = async () => {
-    if (!password.trim()) {
+    if (!newPassword.trim()) {
       setError('Password cannot be empty');
       setSuccess('')
       return;
@@ -105,7 +138,7 @@ const PageProfile = () => {
 
     try {
       if (firebaseAuth.currentUser) {
-        await updatePassword(firebaseAuth.currentUser, password);
+        await updatePassword(firebaseAuth.currentUser, newPassword);
         const userDocRef = doc(firebaseFirestore, 'users', user.uid);
         await updateDoc(userDocRef, {lastModified: new Date()});
         setPassword('');
@@ -118,9 +151,11 @@ const PageProfile = () => {
     }
   };
 
+
   if (!user) {
     return <Navigate to="/login"/>;
   }
+
 
   return (
     <div>
@@ -140,7 +175,7 @@ const PageProfile = () => {
         <input 
           name="newUsername"
           value={newUsername}
-          onChange={(e) => setNewUsername(e.target.value)}
+          onChange={handleInputChange}
           placeholder="New Username"
         />
         <button onClick={handleUpdateUsername}>Update Username</button>
@@ -151,7 +186,7 @@ const PageProfile = () => {
         <input 
           name="newEmail"
           value={newEmail}
-          onChange={(e) => setNewEmail(e.target.value)}
+          onChange={handleInputChange}
           placeholder="New Email"
         />
         <button onClick={handleUpdateEmail}>Update Email</button>
@@ -161,9 +196,9 @@ const PageProfile = () => {
         <h3>Update Password</h3>
         <input 
           type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="newPassword"
+          value={newPassword}
+          onChange={handleInputChange}
           placeholder="New Password"
         />
         <button onClick={handleUpdatePassword}>Update Password</button>

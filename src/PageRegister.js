@@ -60,7 +60,9 @@ const PageRegister = () => {
   return (
     <div>
       <h2>Register</h2>
-      {error && <div>{error}</div>}
+
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      
       <div>
         <input 
           name="username" 
