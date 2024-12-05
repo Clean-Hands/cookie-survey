@@ -17,10 +17,8 @@ jobs:
         with:
           node-version: '20'
             
-      - name: Build React App
-        run: |
-          npm install
-          npm run build
+      - name: Install Dependencies
+        run: npm install
       
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
