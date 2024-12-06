@@ -34,7 +34,9 @@ const App = () => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <div>Authentication loading...</div>;
+    return <div class="main-content">
+              <p>Authentication loading...</p>
+            </div>;
   }
 
   return (
