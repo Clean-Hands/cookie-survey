@@ -1,15 +1,22 @@
 @import url(
 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+.main-content {
+  margin-inline: 250px;
+  margin-top: 100px;
+  font-size: medium;
+}
+
 * {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  color: #224012;
 }
 
-h1, h2, h3, h4, hr, div, p, a, i, button, input {
+h1, h2, h3, h4, hr, div, p, a, i, button, input, body {
     margin-block: 5px;
+    background-color: #FCFFF0;
 }
-
 
 h1 {
   margin-block: 10px;
@@ -36,43 +43,36 @@ button, select, input {
   margin-right: 5px;
 }
 
-.main-content {
-    margin-inline: 250px;
-    margin-top: 100px;
-    font-size: medium;
+button {
+  background-color: #224012;
+  color: #FCFFF0;
+  border: none;
+  border-radius: 14px;
+  padding: 7px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
 }
 
-.sortable-list {
-    width: 425px;
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 13px 46px rgba(0, 0, 0, 0.1);
+button:hover {
+  background-color: #941C2F;
 }
 
-.input-field {
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
+input, select, option {
+    border: 1px solid #224012;
     border-radius: 14px;
-    font-size: 16px;
-    width: 100%;
-    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
+    background-color: #FCFFF0;
+    transition: background-color 0.2s ease;
+    /* box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1); */
 }
-
-.add-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
+input {
+    padding: 8px;
 }
-
-.add-button:hover {
-    background-color: #0056b3;
+select {
+    padding: 6px;
+}
+select:hover {
+  background-color: #224012;
+  color: #FCFFF0;
 }

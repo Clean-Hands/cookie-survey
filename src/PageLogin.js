@@ -23,10 +23,19 @@ const PageLogin = () => {
   };
 
   const login = async () => {
+
+    if (!email.trim()) {
+      setError('Email may not be empty.');
+      return;
+    } else if (!password.trim()) {
+      setError('Password may not be empty.');
+      return;
+    }
+
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
-    } catch (error) {
-      setError(error.message);
+    } catch (e) {
+      setError(e.message);
     }
   };
 
@@ -57,16 +66,15 @@ const PageLogin = () => {
         />
         <br/>
         <button 
-          disabled={!email.trim() || !password.trim()}
           onClick={login}
         >
           Login</button>
       </div>
       {/* TODO: Forgot password link */}
       <hr/>
-      <Link to="/register"><button>Register</button></Link>
+      <Link tabindex="-1" to="/register"><button>Register</button></Link>
       <br/>
-      <Link to="/"><button>Home</button></Link>
+      <Link tabindex="-1" to="/"><button>Home</button></Link>
     </div>
   );
 };

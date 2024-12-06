@@ -32,6 +32,17 @@ const PageRegister = () => {
   };
 
   const register = async () => {
+    if (!username.trim()) {
+      setError('Username may not be empty.');
+      return;
+    } else if (!email.trim()) {
+      setError('Email may not be empty.');
+      return;
+    } else if (!password.trim()) {
+      setError('Password may not be empty.');
+      return;
+    }
+
     try {
       // Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
@@ -88,16 +99,15 @@ const PageRegister = () => {
         {/* TODO: confirm password */}
         <br/>
         <button 
-          disabled={!username.trim() || !email.trim() || !password.trim()} 
           onClick={register}
         >
           Register
         </button>
       </div>
       <hr/>
-      <Link to="/login"><button>Login</button></Link>
+      <Link tabindex="-1" to="/login"><button>Login</button></Link>
       <br/>
-      <Link to="/"><button>Home</button></Link>
+      <Link tabindex="-1" to="/"><button>Home</button></Link>
     </div>
   );
 };

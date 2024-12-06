@@ -67,7 +67,7 @@ const PageProfile = () => {
 
   const handleUpdateUsername = async () => {
     if (!newUsername.trim()) {
-      setError('Username cannot be empty');
+      setError('Username may not be empty.');
       setSuccess('')
       return;
     }
@@ -96,7 +96,7 @@ const PageProfile = () => {
 
   const handleUpdateEmail = async () => {
     if (!newEmail.trim()) {
-      setError('Email cannot be empty');
+      setError('Email may not be empty.');
       setSuccess('');
       return;
     }
@@ -135,7 +135,7 @@ const PageProfile = () => {
 
   const handleUpdatePassword = async () => {
     if (!newPassword.trim()) {
-      setError('Password cannot be empty');
+      setError('Password may not be empty.');
       setSuccess('')
       return;
     }
@@ -164,17 +164,15 @@ const PageProfile = () => {
   return (
     <div class="main-content">
       <h2>My Profile</h2>
-      
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {success && <div style={{ color: 'green' }}>{success}</div>}
 
       <div>
-        <h3>Current Profile</h3>
-        <p>Username: {profileData.username}</p>
-        <p>Email: {profileData.email}</p>
+        <p><b>Username:</b> {profileData.username}</p>
+        <p><b>Email:</b> {profileData.email}</p>
       </div>
-
+      <br/>
       <div>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {success && <div style={{ color: 'green' }}>{success}</div>}
         <h4>Update Username</h4>
         <input 
           name="newUsername"
@@ -182,7 +180,7 @@ const PageProfile = () => {
           onChange={handleInputChange}
           placeholder="New Username"
         />
-        <button onClick={handleUpdateUsername}>Update Username</button>
+        <button onClick={handleUpdateUsername}>Update</button>
       </div>
 
       <div>
@@ -193,7 +191,7 @@ const PageProfile = () => {
           onChange={handleInputChange}
           placeholder="New Email"
         />
-        <button onClick={handleUpdateEmail}>Update Email</button>
+        <button onClick={handleUpdateEmail}>Update</button>
       </div>
 
       <div>
@@ -205,11 +203,13 @@ const PageProfile = () => {
           onChange={handleInputChange}
           placeholder="New Password"
         />
-        <button onClick={handleUpdatePassword}>Update Password</button>
+        <button onClick={handleUpdatePassword}>Update</button>
       </div>
 
+      {/* TODO: past years' ballots */}
+
       <hr/>
-      <Link to="/">
+      <Link tabindex="-1" to="/">
         <button>Home</button>
       </Link>
     </div>

@@ -252,8 +252,9 @@ const Vote2024 = () => {
 	</div>
 
 	<hr/>
-	<Link to="/">
-	  	<button>Home</button></Link>
+	<Link tabindex="-1" to="/">
+	  	<button>Home</button>
+	</Link>
     </div>
   );
 };

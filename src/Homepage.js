@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from './index';
-import './App.css';
 
 const Homepage = () => {
   const user = useSelector(state => state.auth.user);
@@ -25,7 +24,9 @@ const Homepage = () => {
 
       {user ? (
         <div>
-          <Link to="/vote"><button>Click Here to Vote!</button></Link>
+          <Link tabindex="-1" to="/vote">
+            <button>Click Here to Vote!</button>
+          </Link>
         </div>
       ) : (
         <div>
@@ -43,9 +44,9 @@ const Homepage = () => {
         </div> 
       ) : (
         <div>
-          <Link to="/register">
+          <Link tabindex="-1" to="/register">
             <button>Register</button>
-          </Link> <Link to="/login">
+          </Link> <Link tabindex="-1" to="/login">
             <button>Login</button>
           </Link>
         </div>

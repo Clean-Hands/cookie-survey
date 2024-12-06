@@ -11,6 +11,8 @@ import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
 import Vote2024 from './Vote2024.js';
 import VoteSuccess from './VoteSuccess.js';
+import './App.css';
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,7 +46,14 @@ const App = () => {
         <Route path="/profile" element={<PageProfile />} />
         <Route path="/vote" element={<Vote2024 />} />
         <Route path="/success" element={<VoteSuccess />} />
-        <Route path="*" element={<div><p>Page not found</p><br/><Link to="/">Home</Link></div>} />
+        <Route path="*" element={<div class="main-content">
+                                   <h1>Page not found :(</h1>
+                                   <br/>
+                                   <Link tabindex="-1" to="/">
+                                     <button>Home</button>
+                                   </Link>
+                                 </div>}
+        />
       </Routes>
     </BrowserRouter>
   );
