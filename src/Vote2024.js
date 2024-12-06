@@ -143,14 +143,14 @@ const Vote2024 = () => {
 
   return (
     <div class="main-content">
-      <h1>{profileData.username}'s 2024 Cookie Rankings</h1>
+      <h2>{profileData.username}'s 2024 Cookie Rankings</h2>
 	  <p>Please rank your favorite Christmas cookies from first to sixth. <br/> <b>Click the submit button</b> when you are done.</p>
       <br/>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {success && <div style={{ color: 'green' }}>{success}</div>}
       <div>
 		<div>
-			<label for="newFirstChoice">First choice: </label>
+			<label for="newFirstChoice"><b>First choice: </b></label>
 			<select name="newFirstChoice"
 					id="newFirstChoice" 
 					value={newFirstChoice}
@@ -166,7 +166,7 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<div>
-			<label for="newSecondChoice">Second choice: </label>
+			<label for="newSecondChoice"><b>Second choice: </b></label>
 			<select name="newSecondChoice"
 					id="newSecondChoice" 
 					value={newSecondChoice}
@@ -183,7 +183,7 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<div>
-			<label for="newThirdChoice">Third choice: </label>
+			<label for="newThirdChoice"><b>Third choice: </b></label>
 			<select name="newThirdChoice"
 					id="newThirdChoice" 
 					value={newThirdChoice}
@@ -199,7 +199,7 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<div>
-			<label for="newFourthChoice">Fourth choice: </label>
+			<label for="newFourthChoice"><b>Fourth choice: </b></label>
 			<select name="newFourthChoice"
 					id="newFourthChoice" 
 					value={newFourthChoice}
@@ -215,7 +215,7 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<div>
-			<label for="newFifthChoice">Fifth choice: </label>
+			<label for="newFifthChoice"><b>Fifth choice: </b></label>
 			<select name="newFifthChoice"
 					id="newFifthChoice" 
 					value={newFifthChoice}
@@ -231,7 +231,7 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<div>
-			<label for="newSixthChoice">Sixth choice: </label>
+			<label for="newSixthChoice"><b>Sixth choice: </b></label>
 			<select name="newSixthChoice"
 					id="newSixthChoice" 
 					value={newSixthChoice}
