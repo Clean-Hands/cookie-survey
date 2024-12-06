@@ -74,15 +74,15 @@ const PageProfile = () => {
 
     try {
       const userDocRef = doc(firebaseFirestore, 'users', user.uid);
-      await updateDoc(userDocRef, {username: newUsername, lastModified: new Date()});
+      await updateDoc(userDocRef, {username: newUsername.trim(), lastModified: new Date()});
 
       // Dispatch an action to update the user in Redux store
       dispatch(setUser({
         ...user,
-        username: newUsername
+        username: newUsername.trim()
       }));
 
-      setProfileData(prev => ({ ...prev, username: newUsername }));
+      setProfileData(prev => ({ ...prev, username: newUsername.trim() }));
       setUsername('');
 
       setSuccess('Username updated successfully');
@@ -103,17 +103,17 @@ const PageProfile = () => {
 
     try {
       if (firebaseAuth.currentUser) {
-        await updateEmail(firebaseAuth.currentUser, newEmail);
+        await updateEmail(firebaseAuth.currentUser, newEmail.trim());
         const userDocRef = doc(firebaseFirestore, 'users', user.uid);
-        await updateDoc(userDocRef, {email: newEmail, lastModified: new Date()});
+        await updateDoc(userDocRef, {email: newEmail.trim(), lastModified: new Date()});
 
         // Dispatch an action to update the user in Redux store
         dispatch(setUser({
           ...user,
-          email: newEmail
+          email: newEmail.trim()
         }));
 
-        setProfileData(prev => ({ ...prev, email: newEmail }));
+        setProfileData(prev => ({ ...prev, email: newEmail.trim() }));
         setEmail('');
         setSuccess('Email updated successfully');
         setError('');

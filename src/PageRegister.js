@@ -6,9 +6,10 @@ import { doc, setDoc } from 'firebase/firestore';
 import { firebaseAuth, firebaseFirestore } from './index';
 
 const PageRegister = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [confPassword, setConfPassword] = useState('');
   const [error, setError] = useState('');
 
   const user = useSelector(state => state.auth.user);
@@ -17,14 +18,17 @@ const PageRegister = () => {
     const { name, value } = event.target;
     setError('');
     switch (name) {
+      case 'username':
+        setUsername(value);
+        break;
       case 'email':
         setEmail(value);
         break;
       case 'password':
         setPassword(value);
         break;
-      case 'username':
-        setUsername(value);
+      case 'confPassword':
+        setConfPassword(value);
         break;
       default:
         setError('unknown event name')
@@ -41,20 +45,26 @@ const PageRegister = () => {
     } else if (!password.trim()) {
       setError('Password may not be empty.');
       return;
+    } else if (!confPassword.trim()) {
+      setError('Please confirm your password.');
+      return;
+    } else if (password !== confPassword) {
+      setError('Passwords do not match.');
+      return;
     }
 
     try {
       // Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         firebaseAuth, 
-        email, 
+        email.trim(), 
         password
       );
       
       // Create user profile in Firestore
       await setDoc(doc(firebaseFirestore, 'users', userCredential.user.uid), {
-        email,
-        username,
+        email: email.trim(),
+        username: username.trim(),
         createdAt: new Date(),
         lastModified: new Date(),
         lastLogin: new Date()
@@ -95,6 +105,14 @@ const PageRegister = () => {
           onChange={handleInputChange} 
           placeholder="Password" 
           value={password}
+        />
+        <br/>
+        <input 
+          name="confPassword" 
+          type="password" 
+          onChange={handleInputChange} 
+          placeholder="Confirm Password" 
+          value={confPassword}
         />
         {/* TODO: confirm password */}
         <br/>
