@@ -62,7 +62,7 @@ const PageRegister = () => {
       <h2>Register</h2>
 
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      
+
       <div>
         <input 
           name="username" 
@@ -85,6 +85,7 @@ const PageRegister = () => {
           placeholder="Password" 
           value={password}
         />
+        {/* TODO: confirm password */}
         <br/>
         <button 
           disabled={!username.trim()} 

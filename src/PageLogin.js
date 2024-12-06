@@ -59,6 +59,7 @@ const PageLogin = () => {
         <br/>
         <button onClick={login}>Login</button>
       </div>
+      {/* TODO: Forgot password link */}
       <hr/>
       <Link to="/register">Register</Link>
       <br/>

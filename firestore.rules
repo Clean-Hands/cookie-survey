@@ -18,18 +18,10 @@ service cloud.firestore {
     }
     
     // Survey responses rules
-    match /surveys/{surveyId}/responses/{responseId} {
-      // Allow authenticated users to create their own survey responses
-      allow create: if isAuthenticated() && 
-        request.resource.data.userId == request.auth.uid;
+    match /surveys/{surveyId}/responses/{userId} {
       
-      // Allow users to read their own responses
-      allow read: if isAuthenticated() && 
-        resource.data.userId == request.auth.uid;
-      
-      // Allow users to update their own responses
-      allow update: if isAuthenticated() && 
-        resource.data.userId == request.auth.uid;
+      // Allow users to access their own survey responses
+      allow create, read, update: if isAuthenticated() && isOwner(userId);
     }
   }
 }

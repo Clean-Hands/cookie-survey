@@ -74,10 +74,14 @@ const PageProfile = () => {
 
     try {
       const userDocRef = doc(firebaseFirestore, 'users', user.uid);
-      await updateDoc(userDocRef, {
-        username: newUsername, 
-        lastModified: new Date()
-      });
+      await updateDoc(userDocRef, {username: newUsername, lastModified: new Date()});
+
+      // Dispatch an action to update the user in Redux store
+      dispatch(setUser({
+        ...user,
+        username: newUsername
+      }));
+
       setProfileData(prev => ({ ...prev, username: newUsername }));
       setUsername('');
 
