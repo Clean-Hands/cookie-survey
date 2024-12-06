@@ -4,7 +4,7 @@
 .main-content {
   width: 65%;
   margin-top: 6%;
-  margin: auto;
+  margin-inline: auto;
   font-size: medium;
 }
 
