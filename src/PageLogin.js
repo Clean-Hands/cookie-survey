@@ -37,10 +37,9 @@ const PageLogin = () => {
   }
 
   return (
-    <div>
+    <div class="main-content">
       <h2>Login</h2>
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      <br/>
       <div>
         <input 
           name="email" 
@@ -57,13 +56,17 @@ const PageLogin = () => {
           value={password}
         />
         <br/>
-        <button onClick={login}>Login</button>
+        <button 
+          disabled={!email.trim() || !password.trim()}
+          onClick={login}
+        >
+          Login</button>
       </div>
       {/* TODO: Forgot password link */}
       <hr/>
-      <Link to="/register">Register</Link>
+      <Link to="/register"><button>Register</button></Link>
       <br/>
-      <Link to="/">Home</Link>
+      <Link to="/"><button>Home</button></Link>
     </div>
   );
 };

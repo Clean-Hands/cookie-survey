@@ -10,6 +10,7 @@ import PageRegister from './PageRegister.js';
 import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
 import Vote2024 from './Vote2024.js';
+import VoteSuccess from './VoteSuccess.js';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/login" element={<PageLogin />} />
         <Route path="/profile" element={<PageProfile />} />
         <Route path="/vote" element={<Vote2024 />} />
+        <Route path="/success" element={<VoteSuccess />} />
         <Route path="*" element={<div><p>Page not found</p><br/><Link to="/">Home</Link></div>} />
       </Routes>
     </BrowserRouter>

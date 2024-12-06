@@ -17,15 +17,15 @@ const Homepage = () => {
   };
 
   return (
-    <div>
-      <h1>2024 Christmas Cookie Vote</h1>
-      <h4>by Lazuli Kleinhans</h4>
+    <div class="main-content">
+      <h1>2024 Christmas Cookie Survey</h1>
+      <i>by Lazuli Kleinhans</i>
       <hr/>
-      <p>Welcome to the 2024 annual Christmas cookie vote!</p>
+      <p>Welcome to the 2024 annual Christmas cookie survey!</p>
 
       {user ? (
         <div>
-          <Link to="/vote">Submit/Change My Rankings</Link>
+          <Link to="/vote"><button>Click Here to Vote!</button></Link>
         </div>
       ) : (
         <div>
@@ -36,15 +36,18 @@ const Homepage = () => {
       <h3>Account</h3>
       {user ? (
         <div>
-          <div>{user.email}</div>
-          <button onClick={handleLogout}>Logout</button><br/>
-          <Link to="/profile">My Profile</Link>
+          <div>
+            {user.email} - <Link to="/profile">My Profile</Link>
+          </div>
+          <button onClick={handleLogout}>Logout</button>
         </div> 
       ) : (
         <div>
-          <Link to="/register">Register</Link>
-          <br/>
-          <Link to="/login">Login</Link>
+          <Link to="/register">
+            <button>Register</button>
+          </Link> <Link to="/login">
+            <button>Login</button>
+          </Link>
         </div>
       )}
     </div>

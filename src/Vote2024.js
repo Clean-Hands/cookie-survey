@@ -31,7 +31,7 @@ const Vote2024 = () => {
 				setFourthChoice(userDoc.data().fourthChoice  || '');
 				setFifthChoice(userDoc.data().fifthChoice  || '');
 				setSixthChoice(userDoc.data().sixthChoice  || '');
-				// setSuccess('Loaded previous response.')
+				setSuccess('Successfully loaded previous responses.')
 			};
 		} catch (error) {
 			setError('Could not fetch user profile: ' + error.message);
@@ -59,7 +59,7 @@ const Vote2024 = () => {
     };
 
 	if (user) {
-		resetChoices(); // Direct call
+		resetChoices();
 		fetchUserProfile();
 	}
   }, [user, resetChoices]);
@@ -136,16 +136,19 @@ const Vote2024 = () => {
     	return <Navigate to="/login"/>;
   	}
 
+  	if (success === "Preferences submitted successfully!") {
+    	return <Navigate to="/success"/>;
+  	}
+
 
   return (
-    <div>
-      <h2>{profileData.username}'s 2024 Cookie Rankings</h2>
-      
+    <div class="main-content">
+      <h1>{profileData.username}'s 2024 Cookie Rankings</h1>
+	  <p>Please rank your favorite Christmas cookies from first to sixth. <br/> <b>Click the submit button</b> when you are done.</p>
+      <br/>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {success && <div style={{ color: 'green' }}>{success}</div>}
-		<br/>
       <div>
-        {/* <h3>Update Username</h3> */}
 		<div>
 			<label for="newFirstChoice">First choice: </label>
 			<select name="newFirstChoice"
@@ -162,7 +165,6 @@ const Vote2024 = () => {
 				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
-		<br/>
 		<div>
 			<label for="newSecondChoice">Second choice: </label>
 			<select name="newSecondChoice"
@@ -180,7 +182,6 @@ const Vote2024 = () => {
 				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
-		<br/>
 		<div>
 			<label for="newThirdChoice">Third choice: </label>
 			<select name="newThirdChoice"
@@ -197,7 +198,6 @@ const Vote2024 = () => {
 				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
-		<br/>
 		<div>
 			<label for="newFourthChoice">Fourth choice: </label>
 			<select name="newFourthChoice"
@@ -214,7 +214,6 @@ const Vote2024 = () => {
 				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
-		<br/>
 		<div>
 			<label for="newFifthChoice">Fifth choice: </label>
 			<select name="newFifthChoice"
@@ -231,7 +230,6 @@ const Vote2024 = () => {
 				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
-		<br/>
 		<div>
 			<label for="newSixthChoice">Sixth choice: </label>
 			<select name="newSixthChoice"
@@ -249,11 +247,13 @@ const Vote2024 = () => {
 			</select> 
 		</div>
 		<br/>
-        <button onClick={handleSubmit}>Submit</button>
-      </div>
+        <button onClick={handleSubmit}>Submit Rankings</button>
+		<br/>
+	</div>
 
-      <hr/>
-      <Link to="/">Home</Link>
+	<hr/>
+	<Link to="/">
+	  	<button>Home</button></Link>
     </div>
   );
 };

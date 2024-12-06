@@ -58,7 +58,7 @@ const PageRegister = () => {
   }
 
   return (
-    <div>
+    <div class="main-content">
       <h2>Register</h2>
 
       {error && <div style={{ color: 'red' }}>{error}</div>}
@@ -88,16 +88,16 @@ const PageRegister = () => {
         {/* TODO: confirm password */}
         <br/>
         <button 
-          disabled={!username.trim()} 
+          disabled={!username.trim() || !email.trim() || !password.trim()} 
           onClick={register}
         >
           Register
         </button>
       </div>
       <hr/>
-      <Link to="/login">Login</Link>
+      <Link to="/login"><button>Login</button></Link>
       <br/>
-      <Link to="/">Home</Link>
+      <Link to="/"><button>Home</button></Link>
     </div>
   );
 };

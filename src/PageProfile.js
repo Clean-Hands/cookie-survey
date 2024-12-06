@@ -162,7 +162,7 @@ const PageProfile = () => {
 
 
   return (
-    <div>
+    <div class="main-content">
       <h2>My Profile</h2>
       
       {error && <div style={{ color: 'red' }}>{error}</div>}
@@ -175,7 +175,7 @@ const PageProfile = () => {
       </div>
 
       <div>
-        <h3>Update Username</h3>
+        <h4>Update Username</h4>
         <input 
           name="newUsername"
           value={newUsername}
@@ -186,7 +186,7 @@ const PageProfile = () => {
       </div>
 
       <div>
-        <h3>Update Email</h3>
+        <h4>Update Email</h4>
         <input 
           name="newEmail"
           value={newEmail}
@@ -197,7 +197,7 @@ const PageProfile = () => {
       </div>
 
       <div>
-        <h3>Update Password</h3>
+        <h4>Update Password</h4>
         <input 
           type="password"
           name="newPassword"
@@ -209,7 +209,9 @@ const PageProfile = () => {
       </div>
 
       <hr/>
-      <Link to="/">Home</Link>
+      <Link to="/">
+        <button>Home</button>
+      </Link>
     </div>
   );
 };
