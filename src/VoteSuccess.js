@@ -71,7 +71,7 @@ const VoteSuccess = () => {
   	return (
     	<div class="main-content">
 			<h1>Success!</h1>
-			<h3>Your cookie rankings have successfully been submitted. Thanks for voting!</h3>
+			<h3>Your cookie rankings have been submitted successfully. Thanks for voting!</h3>
 			
 			<h4>Here's what we recieved:</h4>
 			{error && <div style={{ color: 'red' }}>{error}</div>}
