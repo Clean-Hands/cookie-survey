@@ -18,7 +18,7 @@ const PageLogin = () => {
 
 	const handlePasswordReset = async () => {
         if (!email.trim()) {
-			setError('Email may not be empty.');
+			setError('Email is required to reset password.');
             return;
         }
 
