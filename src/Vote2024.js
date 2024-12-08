@@ -39,62 +39,61 @@ const Vote2024 = () => {
 		}
   	}, [user]);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(firebaseFirestore, 'users', user.uid));
-          
-          if (userDoc.exists()) {
-            setProfileData({
-              username: userDoc.data().username || '',
-              email: user.email || '',
-            });
-          }
-        } catch (error) {
-          setError('Could not fetch user profile: ' + error.message);
-          setSuccess('')
-        }
-      }
-    };
+	useEffect(() => {
+		const fetchUserProfile = async () => {
+			if (user) {
+				try {
+					const userDoc = await getDoc(doc(firebaseFirestore, 'users', user.uid));
+					
+					if (userDoc.exists()) {
+						setProfileData({
+							username: userDoc.data().username || '',
+							email: user.email || '',
+						});
+					}
+				} catch (error) {
+					setError('Could not fetch user profile: ' + error.message);
+					setSuccess('')
+				}
+			}
+		};
 
-	if (user) {
-		resetChoices();
-		fetchUserProfile();
-	}
-  }, [user, resetChoices]);
+		if (user) {
+			resetChoices();
+			fetchUserProfile();
+		}
+	}, [user, resetChoices]);
 
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setError('');
-    setSuccess('');
-    switch (name) {
-		case 'newFirstChoice':
-			setFirstChoice(value);
-			break;
-		case 'newSecondChoice':
-			setSecondChoice(value);
-			break;
-		case 'newThirdChoice':
-			setThirdChoice(value);
-			break;
-		case 'newFourthChoice':
-			setFourthChoice(value);
-			break;
-		case 'newFifthChoice':
-			setFifthChoice(value);
-			break;
-		case 'newSixthChoice':
-			setSixthChoice(value);
-			break;
-      default:
-        setError('unknown event name')
-    }
-  };
+	const handleInputChange = (event) => {
+		const { name, value } = event.target;
+		setError('');
+		setSuccess('');
+		switch (name) {
+			case 'newFirstChoice':
+				setFirstChoice(value);
+				break;
+			case 'newSecondChoice':
+				setSecondChoice(value);
+				break;
+			case 'newThirdChoice':
+				setThirdChoice(value);
+				break;
+			case 'newFourthChoice':
+				setFourthChoice(value);
+				break;
+			case 'newFifthChoice':
+				setFifthChoice(value);
+				break;
+			case 'newSixthChoice':
+				setSixthChoice(value);
+				break;
+			default:
+				setError('unknown event name')
+		}
+	};
 
   	const handleSubmit = async () => {
-
 		// verify user input
 		const choiceArray = [newFirstChoice, newSecondChoice, newThirdChoice, newFourthChoice, newFifthChoice, newSixthChoice]
 		const choiceSet = new Set(choiceArray)
@@ -141,122 +140,125 @@ const Vote2024 = () => {
   	}
 
 
-  return (
-    <div class="main-content">
-      <h2>{profileData.username}'s 2024 Cookie Rankings</h2>
-	  <p>Please rank your favorite Christmas cookies from first to sixth. <br/> <b>Click the submit button</b> when you are done.</p>
-      <br/>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {success && <div style={{ color: 'green' }}>{success}</div>}
-      <div>
-		<div>
-			<label for="newFirstChoice"><b>First choice: </b></label>
-			<select name="newFirstChoice"
-					id="newFirstChoice" 
-					value={newFirstChoice}
-					onChange={handleInputChange}
-					>
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<div>
-			<label for="newSecondChoice"><b>Second choice: </b></label>
-			<select name="newSecondChoice"
-					id="newSecondChoice" 
-					value={newSecondChoice}
-					onChange={handleInputChange}
-					placeholder="Second choice"
-					required>
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<div>
-			<label for="newThirdChoice"><b>Third choice: </b></label>
-			<select name="newThirdChoice"
-					id="newThirdChoice" 
-					value={newThirdChoice}
-					onChange={handleInputChange}
-					placeholder="Third choice">
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<div>
-			<label for="newFourthChoice"><b>Fourth choice: </b></label>
-			<select name="newFourthChoice"
-					id="newFourthChoice" 
-					value={newFourthChoice}
-					onChange={handleInputChange}
-					placeholder="Fourth choice">
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<div>
-			<label for="newFifthChoice"><b>Fifth choice: </b></label>
-			<select name="newFifthChoice"
-					id="newFifthChoice" 
-					value={newFifthChoice}
-					onChange={handleInputChange}
-					placeholder="Fifth choice">
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<div>
-			<label for="newSixthChoice"><b>Sixth choice: </b></label>
-			<select name="newSixthChoice"
-					id="newSixthChoice" 
-					value={newSixthChoice}
-					onChange={handleInputChange}
-					placeholder="Sixth choice">
-				<option value="" selected disabled hidden></option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
-				<option value="xmasCutouts">Christmas Cutouts</option>
-				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="turtles">Turtles</option>
-				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-			</select> 
-		</div>
-		<br/>
-        <button onClick={handleSubmit}>Submit Rankings</button>
-		<br/>
-	</div>
+	return (
+		<div class="main-content">
+			<h2>{profileData.username}'s 2024 Cookie Rankings</h2>
+			<p>
+				Please rank your favorite Christmas cookies from first to sixth. <br/>
+				<b>Click the submit button</b> when you are done.
+			</p>
+			<br/>
+			{error && <div style={{ color: 'red' }}>{error}</div>}
+			{success && <div style={{ color: 'green' }}>{success}</div>}
+			<div>
+				<div>
+					<label for="newFirstChoice"><b>First choice: </b></label>
+					<select name="newFirstChoice"
+							id="newFirstChoice" 
+							value={newFirstChoice}
+							onChange={handleInputChange}
+							>
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<div>
+					<label for="newSecondChoice"><b>Second choice: </b></label>
+					<select name="newSecondChoice"
+							id="newSecondChoice" 
+							value={newSecondChoice}
+							onChange={handleInputChange}
+							placeholder="Second choice"
+							required>
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<div>
+					<label for="newThirdChoice"><b>Third choice: </b></label>
+					<select name="newThirdChoice"
+							id="newThirdChoice" 
+							value={newThirdChoice}
+							onChange={handleInputChange}
+							placeholder="Third choice">
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<div>
+					<label for="newFourthChoice"><b>Fourth choice: </b></label>
+					<select name="newFourthChoice"
+							id="newFourthChoice" 
+							value={newFourthChoice}
+							onChange={handleInputChange}
+							placeholder="Fourth choice">
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<div>
+					<label for="newFifthChoice"><b>Fifth choice: </b></label>
+					<select name="newFifthChoice"
+							id="newFifthChoice" 
+							value={newFifthChoice}
+							onChange={handleInputChange}
+							placeholder="Fifth choice">
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<div>
+					<label for="newSixthChoice"><b>Sixth choice: </b></label>
+					<select name="newSixthChoice"
+							id="newSixthChoice" 
+							value={newSixthChoice}
+							onChange={handleInputChange}
+							placeholder="Sixth choice">
+						<option value="" selected disabled hidden></option>
+						<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+						<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
+						<option value="xmasCutouts">Christmas Cutouts</option>
+						<option value="ruTeacakes">Russian Teacakes</option>
+						<option value="turtles">Turtles</option>
+						<option value="whiteChocPretzels">White Chocolate Pretzels</option>
+					</select> 
+				</div>
+				<br/>
+				<button onClick={handleSubmit}>Submit Rankings</button>
+				<br/>
+			</div>
 
-	<hr/>
-	<Link tabindex="-1" to="/">
-	  	<button>Home</button>
-	</Link>
-    </div>
-  );
+			<hr/>
+			<Link tabindex="-1" to="/">
+				<button>Home</button>
+			</Link>
+		</div>
+	);
 };
 
 export default Vote2024;

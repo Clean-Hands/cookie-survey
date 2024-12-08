@@ -15,50 +15,50 @@ import './App.css';
 
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector(state => state.auth);
+	const dispatch = useDispatch();
+	const { isLoading } = useSelector(state => state.auth);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
-      if (currentUser) {
-        dispatch(setUser({
-          uid: currentUser.uid,
-          email: currentUser.email
-        }));
-      } else {
-        dispatch(clearUser());
-      }
-    });
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+			if (currentUser) {
+				dispatch(setUser({
+					uid: currentUser.uid,
+					email: currentUser.email
+				}));
+			} else {
+				dispatch(clearUser());
+			}
+		});
 
-    return () => unsubscribe();
-  }, [dispatch]);
+		return () => unsubscribe();
+	}, [dispatch]);
 
-  if (isLoading) {
-    return <div class="main-content">
-              <p>Authentication loading...</p>
-            </div>;
-  }
+	if (isLoading) {
+		return <div class="main-content">
+				   <p>Authentication loading...</p>
+			   </div>;
+	}
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/register" element={<PageRegister />} />
-        <Route path="/login" element={<PageLogin />} />
-        <Route path="/profile" element={<PageProfile />} />
-        <Route path="/vote" element={<Vote2024 />} />
-        <Route path="/success" element={<VoteSuccess />} />
-        <Route path="*" element={<div class="main-content">
-                                   <h1>Page not found :(</h1>
-                                   <br/>
-                                   <Link tabindex="-1" to="/">
-                                     <button>Home</button>
-                                   </Link>
-                                 </div>}
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Homepage />} />
+				<Route path="/register" element={<PageRegister />} />
+				<Route path="/login" element={<PageLogin />} />
+				<Route path="/profile" element={<PageProfile />} />
+				<Route path="/vote" element={<Vote2024 />} />
+				<Route path="/success" element={<VoteSuccess />} />
+				<Route path="*" element={<div class="main-content">
+											 <h1>Page not found :(</h1>
+											 <br/>
+											 <Link tabindex="-1" to="/">
+												 <button>Home</button>
+											 </Link>
+										 </div>}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 };
 
 export default App;
