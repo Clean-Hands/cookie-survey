@@ -64,12 +64,11 @@ const PageLogin = () => {
 					placeholder="Password" 
 					value={password}
 				/>
-				<br/>
-				<button onClick={login}>
-					Login
-				</button>
 			</div>
-			{/* TODO: Forgot password link */}
+			<button onClick={login}>
+				Login
+			</button>&emsp;&emsp;&emsp;&emsp;
+			<Link to="/reset-password">Forgot Password?</Link>
 			<hr/>
 			<Link tabindex="-1" to="/register"><button>Register</button></Link>
 			<br/>

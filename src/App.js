@@ -9,6 +9,7 @@ import Homepage from './Homepage.js';
 import PageRegister from './PageRegister.js';
 import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
+import PagePasswordReset from './PagePasswordReset.js';
 import Vote2024 from './Vote2024.js';
 import VoteSuccess from './VoteSuccess.js';
 import './App.css';
@@ -46,6 +47,7 @@ const App = () => {
 				<Route path="/register" element={<PageRegister />} />
 				<Route path="/login" element={<PageLogin />} />
 				<Route path="/profile" element={<PageProfile />} />
+				<Route path="/reset-password" element={<PagePasswordReset />} />
 				<Route path="/vote" element={<Vote2024 />} />
 				<Route path="/success" element={<VoteSuccess />} />
 				<Route path="*" element={<div class="main-content">
