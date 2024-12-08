@@ -45,18 +45,18 @@ const VoteSuccess = () => {
 
 	const getFullName = (cookieID) => {
 		switch (cookieID) {
+			case "chocPBBalls":
+				return "Chocolate Peanut Butter Balls";
+			case "chocPepCookies":
+				return "Chocolate Peppermint Cookies";
 			case "xmasCutouts":
 				return "Christmas Cutouts";
 			case "ruTeacakes":
 				return "Russian Teacakes";
-			case "chocPBBalls":
-				return "Chocolate Peanut Butter Balls";
 			case "turtles":
 				return "Turtles";
 			case "whiteChocPretzels":
 				return "White Chocolate Pretzels";
-			case "chocPepCookies":
-				return "Chocolate Peppermint Cookies";
 			default:
 				break;
 		}

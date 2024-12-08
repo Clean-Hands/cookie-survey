@@ -157,12 +157,12 @@ const Vote2024 = () => {
 					onChange={handleInputChange}
 					>
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<div>
@@ -174,12 +174,12 @@ const Vote2024 = () => {
 					placeholder="Second choice"
 					required>
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<div>
@@ -190,12 +190,12 @@ const Vote2024 = () => {
 					onChange={handleInputChange}
 					placeholder="Third choice">
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<div>
@@ -206,12 +206,12 @@ const Vote2024 = () => {
 					onChange={handleInputChange}
 					placeholder="Fourth choice">
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<div>
@@ -222,12 +222,12 @@ const Vote2024 = () => {
 					onChange={handleInputChange}
 					placeholder="Fifth choice">
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<div>
@@ -238,12 +238,12 @@ const Vote2024 = () => {
 					onChange={handleInputChange}
 					placeholder="Sixth choice">
 				<option value="" selected disabled hidden></option>
+				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
+				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 				<option value="xmasCutouts">Christmas Cutouts</option>
 				<option value="ruTeacakes">Russian Teacakes</option>
-				<option value="chocPBBalls">Chocolate Peanut Butter Balls</option>
 				<option value="turtles">Turtles</option>
 				<option value="whiteChocPretzels">White Chocolate Pretzels</option>
-				<option value="chocPepCookies">Chocolate Peppermint Cookies</option>
 			</select> 
 		</div>
 		<br/>
