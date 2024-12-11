@@ -19,7 +19,7 @@ const VoteSuccess = () => {
 
 
   	useEffect(() => {
-		const resetChoices = async () => {
+		const getChoices = async () => {
 			try {
 				const userDoc = await getDoc(doc(firebaseFirestore, 'surveys/2024/responses', user.uid));
 				
@@ -38,7 +38,7 @@ const VoteSuccess = () => {
 		};
 
 		if (user) {
-			resetChoices();
+			getChoices();
 		}
   	}, [user]);
 
