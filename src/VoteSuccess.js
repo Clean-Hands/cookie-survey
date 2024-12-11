@@ -73,7 +73,7 @@ const VoteSuccess = () => {
 			<h1>Success!</h1>
 			<h3>Your cookie rankings have been submitted successfully. Thanks for voting!</h3>
 			
-			<h4>Here's what we recieved:</h4>
+			<h4>Here's what we received:</h4>
 			{error && <div style={{ color: 'red' }}>{error}</div>}
 			{success && <div style={{ color: 'green' }}>{success}</div>}
 			<ol>
