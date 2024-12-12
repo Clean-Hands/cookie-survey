@@ -4,7 +4,7 @@ A web app built using React.js and Google Firebase to collect the cookie prefere
 
 ## Visit the Site
 
-The live version can be found at `https://cookie-survey.web.app/`
+The live version can be found at https://cookie-survey.web.app/
 
 ## Example Image
 
