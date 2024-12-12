@@ -20,8 +20,11 @@ service cloud.firestore {
     // Survey responses rules
     match /surveys/{surveyId}/responses/{userId} {
       
-      // Allow users to access their own survey responses
+      // Allow users to modify their own survey responses
       allow create, read, update: if isAuthenticated() && isOwner(userId);
+
+      // Allow users to see other users' responses
+      allow read: if isAuthenticated();
     }
   }
 }

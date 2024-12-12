@@ -20,17 +20,17 @@ const Homepage = () => {
 			<h1>2024 Christmas Cookie Survey</h1>
 			<i>by Lazuli Kleinhans</i>
 			<hr/>
-			<p>Welcome to the 2024 annual Christmas cookie survey!</p>
+			<p>The 2024 Christmas cookie survey has finished!</p>
 
 			{user ? (
 				<div>
-					<Link tabindex="-1" to="/vote">
-						<button>Click Here to Vote!</button>
+					<Link tabindex="-1" to="/results">
+						<button>View Results</button>
 					</Link>
 				</div>
 			) : (
 				<div>
-					<p>You must be logged in to cast a ballot.</p>
+					<p>You must be logged in to view the results.</p>
 				</div>
 			)}
 			
