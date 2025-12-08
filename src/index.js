@@ -65,7 +65,6 @@ onAuthStateChanged(firebaseAuth, (user) => {
 			uid: user.uid,
 			email: user.email,
 			username: user.username
-			// TODO: Add any other user properties we want to store
 		}));
 	} else {
 		// User is signed out

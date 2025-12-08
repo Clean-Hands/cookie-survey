@@ -14,6 +14,7 @@ const PageLogin = () => {
 			setEmail(value);
 		}
 		setError('');
+		setSuccess('');
 	};
 
 	const handlePasswordReset = async () => {

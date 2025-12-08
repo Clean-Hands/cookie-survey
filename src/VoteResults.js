@@ -9,10 +9,10 @@ import { firebaseFirestore } from './index';
 const VoteResults = () => {
 	const user = useSelector(state => state.auth.user);
 	const [chocPBBallsResults, setChocPBBallsResults] = useState('????');
-	const [chocPepCookiesResults, setChocPepCookiesResults] = useState('????');
 	const [xmasCutoutsResults, setXmasCutoutsResults] = useState('????');
 	const [ruTeacakesResults, setRuTeacakesResults] = useState('????');
 	const [turtleResults, setTurtleResults] = useState('????');
+	const [chocPepClustersResults, setChocPepClustersResults] = useState('????');
 	const [whiteChocPretzelsResults, setWhiteChocPretzelsResults] = useState('????');
 	const [error, setError] = useState('');
 
@@ -20,7 +20,7 @@ const VoteResults = () => {
 		
 		const getResults = async () => {
 
-			const responses = collection(firebaseFirestore, "/surveys/2024/responses")
+			const responses = collection(firebaseFirestore, "/surveys/2025/responses")
 			const choiceOptions = ["firstChoice", "secondChoice", "thirdChoice", "fourthChoice", "fifthChoice"]
 
 			const calculateResults = async (optionName) => {
@@ -38,10 +38,10 @@ const VoteResults = () => {
 			};
 			
 			setChocPBBallsResults(await calculateResults("chocPBBalls"));
-			setChocPepCookiesResults(await calculateResults("chocPepCookies"));
 			setXmasCutoutsResults(await calculateResults("xmasCutouts"));
 			setRuTeacakesResults(await calculateResults("ruTeacakes"));
 			setTurtleResults(await calculateResults("turtles"));
+			setChocPepClustersResults(await calculateResults("chocPepClusters"));
 			setWhiteChocPretzelsResults(await calculateResults("whiteChocPretzels"));
 
 		}
@@ -57,10 +57,10 @@ const VoteResults = () => {
 
 	const resultsData = [
 		{ name: "Chocolate Peanut Butter Balls", value: chocPBBallsResults },
-		{ name: "Chocolate Peppermint Cookies", value: chocPepCookiesResults },
 		{ name: "Christmas Cutouts", value: xmasCutoutsResults },
 		{ name: "Russian Teacakes", value: ruTeacakesResults },
 		{ name: "Turtles", value: turtleResults },
+		{ name: "White Chocolate Peppermint Clusters", value: chocPepClustersResults },
 		{ name: "White Chocolate Pretzels", value: whiteChocPretzelsResults }
 	];
 
@@ -69,7 +69,7 @@ const VoteResults = () => {
   	return (
     	<div class="main-content">
 			<h1>Results</h1>
-			<h3>The 2024 Christmas Cookie Survey is complete!</h3>
+			<h3>The 2025 Christmas Cookie Survey is complete!</h3>
 			
 			<h4>Drumroll please...</h4>
 			{error && <div style={{ color: 'red' }}>{error}</div>}
@@ -85,8 +85,8 @@ const VoteResults = () => {
 						key={name}
 						style={{
 							background: '#224012',
-							width: `${((value / maxValue) * 74) + 26}%`,
-							minWidth: '26%',
+							width: `${((value / maxValue) * 60) + 40}%`,
+							minWidth: '40%',
 							borderRadius: '8px'
 						}}
 					>

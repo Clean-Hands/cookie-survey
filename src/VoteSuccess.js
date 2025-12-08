@@ -21,7 +21,7 @@ const VoteSuccess = () => {
   	useEffect(() => {
 		const getChoices = async () => {
 			try {
-				const userDoc = await getDoc(doc(firebaseFirestore, 'surveys/2024/responses', user.uid));
+				const userDoc = await getDoc(doc(firebaseFirestore, 'surveys/2025/responses', user.uid));
 				
 				if (userDoc.exists()) {
 					setFirstChoice(userDoc.data().firstChoice  || '');
@@ -47,8 +47,8 @@ const VoteSuccess = () => {
 		switch (cookieID) {
 			case "chocPBBalls":
 				return "Chocolate Peanut Butter Balls";
-			case "chocPepCookies":
-				return "Chocolate Peppermint Cookies";
+			case "chocPepClusters":
+				return "White Chocolate Peppermint Clusters";
 			case "xmasCutouts":
 				return "Christmas Cutouts";
 			case "ruTeacakes":

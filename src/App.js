@@ -10,9 +10,9 @@ import PageRegister from './PageRegister.js';
 import PageLogin from './PageLogin.js';
 import PageProfile from './PageProfile.js';
 import PagePasswordReset from './PagePasswordReset.js';
-// import Vote2024 from './Vote2024.js';
-// import VoteSuccess from './VoteSuccess.js';
-import VoteResults from './VoteResults.js';
+import Vote2025 from './Vote2025.js';
+import VoteSuccess from './VoteSuccess.js';
+// import VoteResults from './VoteResults.js';
 import './App.css';
 
 
@@ -49,9 +49,10 @@ const App = () => {
 				<Route path="/login" element={<PageLogin />} />
 				<Route path="/profile" element={<PageProfile />} />
 				<Route path="/reset-password" element={<PagePasswordReset />} />
-				<Route path="/vote" element={<Navigate to="/results"/>} />
-				<Route path="/success" element={<Navigate to="/results"/>} />
-				<Route path="/results" element={<VoteResults />} />
+				<Route path="/vote" element={<Vote2025 />} />
+				<Route path="/success" element={<VoteSuccess />} />
+				{/* <Route path="/success" element={<Navigate to="/results"/>} /> */}
+				{/* <Route path="/results" element={<VoteResults />} /> */}
 				<Route path="*" element={<div class="main-content">
 											 <h1>Page not found :(</h1>
 											 <br/>
