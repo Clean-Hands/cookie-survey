@@ -85,8 +85,8 @@ const VoteResults = () => {
 						key={name}
 						style={{
 							background: '#224012',
-							width: `${((value / maxValue) * 60) + 40}%`,
-							minWidth: '40%',
+							width: `${((value / maxValue) * 65) + 35}%`,
+							minWidth: '35%',
 							borderRadius: '8px'
 						}}
 					>
